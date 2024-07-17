@@ -3,6 +3,7 @@ import { Routes, Route, Link, Outlet, BrowserRouter, Navigate } from 'react-rout
 
 import CommonComponents from './CommonComponents/CommonComponents'
 import Login from './auth/Login'
+import ProtectedRoute from './auth/ProtectedRoute'
 import Dashboard from './dashboard/Dashboard'
 
 function App() {
@@ -10,15 +11,15 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={true ? <Navigate to="/dashboard" replace /> : <Login />}/>
+          <Route path="/" element={false ? <Navigate to="/dashboard" replace /> : <Login />}/>
           <Route path="/login" element={<Login />}/>
-          <Route path="/" element={<CommonComponents isLoggedIn={true} />}>
-            <Route>
-              <Route path="/dashboard" element={<Dashboard/>}/>
-              <Route path="/settings" element={<div>Settings.</div>}/>
+          <Route element={<ProtectedRoute/>}>
+            <Route path="/" element={<CommonComponents isLoggedIn={false} />}>
+                <Route path="/dashboard" element={<Dashboard/>}/>
+                <Route path="/settings" element={<div>Settings.</div>}/>
             </Route>
-            </Route>
-            <Route path="*" element={<div>Not found</div>} />
+          </Route>
+          <Route path="*" element={<div>Not found</div>} />
         </Routes>
       </BrowserRouter>
     </div>
