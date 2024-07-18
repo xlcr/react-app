@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Outlet } from 'react-router-dom';
+import { Container } from "@mui/material";
 
 interface CommonComponentsProps {
     isLoggedIn: boolean;
@@ -18,11 +19,11 @@ const CommonComponents: React.FC<CommonComponentsProps> = ({ isLoggedIn, childre
     };
   
     return (
-      <div>
+      <Container fixed>
           This is the Navbar. Will pull in the other stuff soonish.
           <Outlet />
           {children}
-      </div>
+      </Container>
     );
   }
   
